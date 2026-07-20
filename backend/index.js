@@ -10,8 +10,15 @@ app.use(express.json());
 
 const authRoutes = require("./routes/authRoutes");
 const invoiceRoutes = require("./routes/invoiceRoutes");
+const paymentRoutes=require("./routes/paymentRoutes")
+const detectionRoutes=require("./routes/detectionRoute")
+
+
 app.use("/auth", authRoutes);
 app.use("/invoice", invoiceRoutes);
+app.use("/payment", paymentRoutes);
+app.use("/detection",detectionRoutes)
+
 
 
 mongoose
