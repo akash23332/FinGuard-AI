@@ -1,52 +1,43 @@
 const mongoose=require("mongoose");
-const invoiceSchema=new mongoose.Schema({
+const invoiceSchema = new mongoose.Schema({
     invoiceNumber:{
         type:String,
         required:true,
         unique:true
     },
-   vendorName:{
+
+    vendorName:{
         type:String,
         required:true
     },
+
     invoiceAmount:{
         type:Number,
-        required:true,
+        required:true
     },
+
     invoiceDate:{
         type:Date,
-        required:true,
+        required:true
     },
+
     dueDate:{
         type:Date,
-        required:true,
+        required:true
     },
+
     discount:{
         type:Number,
-        default:0,
-
+        default:0
     },
-    status:{
-        type:String,
-        enum:[
-            "Pending",
-            "Paid",
-            "Overdue"
-        ],
-        default:"Pending"
 
-    },
     uploadedBy:{
-type:mongoose.Schema.Types.ObjectId,
-ref:"User",
-required:true
-},
-
-
-
-
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User",
+        required:true
+    }
 
 },{
-timestamps:true
+    timestamps:true
 });
 module.exports=mongoose.model("Invoice",invoiceSchema);

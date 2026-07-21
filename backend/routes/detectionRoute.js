@@ -1,8 +1,23 @@
-const express =require("express");
-const router=express.Router();
-const authMiddleware=require("../middleware/authMiddleware")
+const express = require("express");
+const router = express.Router();
 
-const {getDuplicatePayments}=require("../controllers/detectionController")
+const authMiddleware = require("../middleware/authMiddleware");
 
-router.get("/duplicate-payments",authMiddleware,getDuplicatePayments)
-module.exports=router;
+const {
+    getDuplicatePayments,
+    getInvoiceStatus
+} = require("../controllers/detectionController");
+
+router.get(
+    "/duplicate-payments",
+    authMiddleware,
+    getDuplicatePayments
+);
+
+router.get(
+    "/invoice-status",
+    authMiddleware,
+    getInvoiceStatus
+);
+
+module.exports = router;
