@@ -1,33 +1,13 @@
 
 const mongoose =require("mongoose")
 const calculateInvoiceStatus = require("../helpers/invoiceStatusHelper");
+const duplicatePaymentsCount=require("../helpers/duplicatePaymentHelper")
 const Invoice =require("../models/Invoice")
 const Payment =require("../models/Payment")
+
 exports.getDuplicatePayments=async(req,res)=>{
     try{
-        const duplicatePayments=await Payment.aggregate([
-            {
-                $match:{
-                    uploadedBy:new mongoose.Types.ObjectId(req.user.id)
-                }
-               
-            },
-            {
-                 $group:{
-                    _id:"$invoiceNumber",
-                    totalPayments:{
-                        $sum:1
-                    }
-                }
-            },
-            {
-                $match:{
-                    totalPayments:{
-                        $gt:1
-                    }
-                }
-            }
-        ])
+        const duplicatePayments=await calculateDuplicatePayments(req.user.id);
         return res.status(200).json({
     duplicatePayments
 });
